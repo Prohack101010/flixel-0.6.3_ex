@@ -1,8 +1,8 @@
 package flixel.util;
 
-import flash.errors.Error;
-import flash.net.SharedObject;
-import flash.net.SharedObjectFlushStatus;
+import openfl.errors.Error;
+import openfl.net.SharedObject;
+import openfl.net.SharedObjectFlushStatus;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 
 /**

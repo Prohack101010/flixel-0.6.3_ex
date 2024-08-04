@@ -7,7 +7,7 @@ import flixel.graphics.tile.FlxDrawBaseItem.FlxDrawItemType;
 import flixel.math.FlxMatrix;
 import flixel.math.FlxRect;
 import flixel.system.FlxAssets.FlxShader;
-import openfl.display.Tilesheet;
+import openfl.display.Tilemap as Tilesheet;
 import openfl.geom.ColorTransform;
 
 class FlxDrawTilesItem extends FlxDrawBaseItem<FlxDrawTilesItem>

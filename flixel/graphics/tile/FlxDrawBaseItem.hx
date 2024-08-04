@@ -6,7 +6,7 @@ import flixel.math.FlxMatrix;
 import openfl.display.BlendMode;
 import openfl.geom.ColorTransform;
 #if !FLX_DRAW_QUADS
-import openfl.display.Tilesheet;
+import openfl.display.Tilemap as Tilesheet;
 #end
 
 /**
