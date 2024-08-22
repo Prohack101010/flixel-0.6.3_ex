@@ -36,6 +36,7 @@ import flixel.math.FlxAngle;
 	/**
 	 * Calculates the angle (in degrees) of the facing flags.
 	 * Returns 0 if two opposing flags are true.
+	 * @since 5.0.0
 	 */
 	public var degrees(get, never):Float;
 	function get_degrees():Float
@@ -56,6 +57,7 @@ import flixel.math.FlxAngle;
 	/**
 	 * Calculates the angle (in radians) of the facing flags.
 	 * Returns 0 if two opposing flags are true.
+	 * @since 5.0.0
 	 */
 	public var radians(get, never):Float;
 	inline function get_radians():Float
@@ -64,11 +66,19 @@ import flixel.math.FlxAngle;
 	}
 
 	/**
-	 * Returns true if this contains all of the supplied flags.
+	 * Returns true if this contains **all** of the supplied flags.
 	 */
 	public inline function has(dir:FlxDirectionFlags):Bool
 	{
 		return this & dir == dir;
+	}
+
+	/**
+	 * Returns true if this contains **any** of the supplied flags.
+	 */
+	public inline function hasAny(dir:FlxDirectionFlags):Bool
+	{
+		return this & dir > 0;
 	}
 
 	/**
@@ -104,6 +114,18 @@ import flixel.math.FlxAngle;
 
 		// remove the first " | "
 		return str.substr(3);
+	}
+
+	/**
+	 * Generates a FlxDirectonFlags instance from 4 bools
+	 * @since 5.0.0
+	 */
+	public static function fromBools(left:Bool, right:Bool, up:Bool, down:Bool):FlxDirectionFlags
+	{
+		return (left  ? LEFT  : NONE)
+			|  (right ? RIGHT : NONE)
+			|  (up    ? UP    : NONE)
+			|  (down  ? DOWN  : NONE);
 	}
 
 	// Expose int operators

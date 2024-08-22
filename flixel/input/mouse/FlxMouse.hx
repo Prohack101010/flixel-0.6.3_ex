@@ -1,14 +1,14 @@
 package flixel.input.mouse;
 
 #if FLX_MOUSE
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-import flash.display.Sprite;
-import flash.display.Stage;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.Lib;
-import flash.ui.Mouse;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.Sprite;
+import openfl.display.Stage;
+import openfl.events.Event;
+import openfl.events.MouseEvent;
+import openfl.Lib;
+import openfl.ui.Mouse;
 import flixel.FlxG;
 import flixel.input.IFlxInputManager;
 import flixel.input.FlxInput.FlxInputState;
@@ -17,11 +17,11 @@ import flixel.system.FlxAssets;
 import flixel.system.replay.MouseRecord;
 import flixel.util.FlxDestroyUtil;
 #if FLX_NATIVE_CURSOR
-import flash.Vector;
-import flash.geom.Matrix;
-import flash.geom.Point;
-import flash.ui.MouseCursor;
-import flash.ui.MouseCursorData;
+import openfl.Vector;
+import openfl.geom.Matrix;
+import openfl.geom.Point;
+import openfl.ui.MouseCursor;
+import openfl.ui.MouseCursorData;
 #end
 
 @:bitmap("assets/images/ui/cursor.png")
@@ -100,6 +100,12 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	public var justPressed(get, never):Bool;
 
 	/**
+	 * Check to see if the left mouse button is currently not pressed.
+	 * @since 5.0.0
+	 */
+	public var released(get, never):Bool;
+
+	/**
 	 * Check to see if the left mouse button has just been released.
 	 */
 	public var justReleased(get, never):Bool;
@@ -120,6 +126,12 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	 * Check to see if the right mouse button has just been pressed.
 	 */
 	public var justPressedRight(get, never):Bool;
+	
+	/**
+	 * Check to see if the right mouse button is currently not pressed.
+	 * @since 5.0.0
+	 */
+	public var releasedRight(get, never):Bool;
 
 	/**
 	 * Check to see if the right mouse button has just been released.
@@ -141,6 +153,12 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	 * Check to see if the middle mouse button has just been pressed.
 	 */
 	public var justPressedMiddle(get, never):Bool;
+
+	/**
+	 * Check to see if the middle mouse button is currently not pressed.
+	 * @since 5.0.0
+	 */
+	public var releasedMiddle(get, never):Bool;
 
 	/**
 	 * Check to see if the middle mouse button has just been released.
@@ -193,10 +211,9 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	var _lastLeftButtonState:FlxInputState;
 
 	/**
-	 * Helper variables to see if the mouse has moved since the last update.
+	 * Helper variables to see if the mouse has moved since the last update, and by how much.
 	 */
 	var _prevX:Int = 0;
-
 	var _prevY:Int = 0;
 	var _prevScreenX:Int = 0;
 	var _prevScreenY:Int = 0;
@@ -586,6 +603,9 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	inline function get_justPressed():Bool
 		return _leftButton.justPressed;
 
+	inline function get_released():Bool
+		return _leftButton.released;
+
 	inline function get_justReleased():Bool
 		return _leftButton.justReleased;
 
@@ -599,6 +619,9 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 	inline function get_justPressedRight():Bool
 		return _rightButton.justPressed;
 
+	inline function get_releasedRight():Bool
+		return _rightButton.released;
+
 	inline function get_justReleasedRight():Bool
 		return _rightButton.justReleased;
 
@@ -610,6 +633,9 @@ class FlxMouse extends FlxPointer implements IFlxInputManager
 
 	inline function get_justPressedMiddle():Bool
 		return _middleButton.justPressed;
+
+	inline function get_releasedMiddle():Bool
+		return _middleButton.released;
 
 	inline function get_justReleasedMiddle():Bool
 		return _middleButton.justReleased;

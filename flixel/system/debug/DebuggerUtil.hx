@@ -7,8 +7,8 @@ import openfl.text.TextFormat;
 import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
 #if flash
-import flash.text.AntiAliasType;
-import flash.text.GridFitType;
+import openfl.text.AntiAliasType;
+import openfl.text.GridFitType;
 #end
 
 class DebuggerUtil

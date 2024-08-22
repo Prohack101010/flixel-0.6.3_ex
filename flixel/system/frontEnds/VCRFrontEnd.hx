@@ -10,8 +10,8 @@ import flixel.FlxState;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRandom;
 #if flash
-import flash.net.FileReference;
-import flash.net.FileFilter;
+import openfl.net.FileReference;
+import openfl.net.FileFilter;
 #end
 #end
 

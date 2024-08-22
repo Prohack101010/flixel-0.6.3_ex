@@ -1,11 +1,11 @@
 package flixel.text;
 
-import flash.display.BitmapData;
-import flash.geom.ColorTransform;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
+import openfl.display.BitmapData;
+import openfl.geom.ColorTransform;
+import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
+import openfl.text.TextFormat;
+import openfl.text.TextFormatAlign;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
@@ -76,7 +76,7 @@ class FlxText extends FlxSprite
 	public var bold(get, set):Bool;
 
 	/**
-	 * Whether to use italic text or not (`false` by default). Only works on Flash.
+	 * Whether to use italic text or not (`false` by default). Only works on openfl.
 	 */
 	public var italic(get, set):Bool;
 
@@ -626,7 +626,7 @@ class FlxText extends FlxSprite
 
 	inline function get_embedded():Bool
 	{
-		return textField.embedFonts = true;
+		return textField.embedFonts;
 	}
 
 	inline function get_systemFont():String
@@ -785,9 +785,9 @@ class FlxText extends FlxSprite
 			oldHeight = graphic.height;
 		}
 
-		var newWidth:Float = textField.width;
+		var newWidth:Int = Math.ceil(textField.width);
 		// Account for gutter
-		var newHeight:Float = textField.textHeight + VERTICAL_GUTTER;
+		var newHeight:Int = Math.ceil(textField.textHeight) + VERTICAL_GUTTER;
 
 		// prevent text height from shrinking on flash if text == ""
 		if (textField.textHeight == 0)
@@ -800,11 +800,11 @@ class FlxText extends FlxSprite
 			// Need to generate a new buffer to store the text graphic
 			height = newHeight;
 			var key:String = FlxG.bitmap.getUniqueKey("text");
-			makeGraphic(Std.int(newWidth), Std.int(newHeight), FlxColor.TRANSPARENT, false, key);
+			makeGraphic(newWidth, newHeight, FlxColor.TRANSPARENT, false, key);
 
 			if (_hasBorderAlpha)
 				_borderPixels = graphic.bitmap.clone();
-			frameHeight = Std.int(height);
+			frameHeight = newHeight;
 			textField.height = height * 1.2;
 			_flashRect.x = 0;
 			_flashRect.y = 0;
@@ -871,6 +871,12 @@ class FlxText extends FlxSprite
 
 			return;
 		}
+		#elseif !web
+		// Fix to render desktop and mobile text in the same visual location as web
+		_matrix.translate(-1, -1); // left and up
+		graphic.draw(textField, _matrix);
+		_matrix.translate(1, 1); // return to center
+		return;
 		#end
 
 		graphic.draw(textField, _matrix);
@@ -1089,7 +1095,7 @@ class FlxTextFormat
 	/**
 	 * @param   FontColor     Font color, in `0xRRGGBB` format. Inherits from the default format by default.
 	 * @param   Bold          Whether the text should be bold (must be supported by the font). `false` by default.
-	 * @param   Italic        Whether the text should be in italics (must be supported by the font). Only works on Flash. `false` by default.
+	 * @param   Italic        Whether the text should be in italics (must be supported by the font). Only works on openfl. `false` by default.
 	 * @param   BorderColor   Border color, in `0xAARRGGBB` format. By default, no border (`null` / transparent).
 	 */
 	public function new(?FontColor:FlxColor, ?Bold:Bool, ?Italic:Bool, ?BorderColor:FlxColor)
